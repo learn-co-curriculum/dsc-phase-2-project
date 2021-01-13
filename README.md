@@ -1,13 +1,19 @@
 # Phase 2 Project
 
 ### Business Problem
+what affect home price increase based on Kings county housing data
 
-It is up to you to define a stakeholder and business problem appropriate to this dataset.
-
-If you are struggling to define a stakeholder, we recommend you complete a project for a real estate agency that helps homeowners buy and/or sell homes. A business problem you could focus on for this stakeholder is the need to provide advice to homeowners about how home renovations might increase the estimated value of their homes, and by what amount.
-
+### Stake holders
+ Real estate organization that wishes to sell property or purchase property based on confidence that property will yield positive ROI
 
 
-## Summary
+###Conclusion
+As shown by our model the grade and sqft_living affect price most closely.
+We can see a positive linear relationship between these factors and it is predicted
+by our current model that price will increase base on these values.
+Price may also be affected by these values having a lower grade or less sqft_living by reduce price
 
-This project will give you a valuable opportunity to develop your data science skills using real-world data. The end-of-phase projects are a critical part of the program because they give you a chance to bring together all the skills you've learned, apply them to realistic projects for a business stakeholder, practice communication skills, and get feedback to help you improve. You've got this!
+###Future work
+We can impliment various regression algorithms for this data to test, we can also test the inverse where we can show what is likely to reduce price.
+We can also impliment deep learning models or simple neural networks that will give us results based on past data.
+NOTE: all future work is based on time and funding and without appropriate amount of both niether will be possible. Future work also takes into account proper infrastructure is in place to build these things.
