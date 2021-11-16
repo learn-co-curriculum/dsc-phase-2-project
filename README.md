@@ -27,9 +27,7 @@ The description of the column names can be found in `column_names.md` in the sam
 
 ## Methods
 ### Importing necessary libraries
-
 ```python
-# import necessary libraries
 # Warning off
 import warnings
 warnings.filterwarnings('ignore')
@@ -55,12 +53,17 @@ from sklearn.model_selection import train_test_split
 
 
 ###  Loading data to check the potential features
-
-
+```python
 #loading kc_house_data.csv data
-
 df = pd.read_csv('./data/kc_house_data.csv')
 df.head() # checking the head for information
+```
+```python
+# Describe the dataset using 5-point statistics
+df.describe()
+# What data is available to us?
+df.info()
+```
 
 ### 2. Data Preparation
 #Deal with data types: sqft_basement & date
