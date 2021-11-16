@@ -24,7 +24,19 @@ The description of the column names can be found in `column_names.md` in the sam
 
 ## Methods
 
+### 1. Loading data to check the potential features
+#loading kc_house_data.csv data
+df = pd.read_csv('./data/kc_house_data.csv')
+df.head() # checking the head for information
 
+### 2. Data Preparation
+#Deal with data types: sqft_basement & date
+#sqft_basement: Numerical Data Stored as Strings need to be reformat to float
+print(df.sqft_basement.unique())
+df.sqft_basement.value_counts()
+#there is '?' in the sqft_basement, need to be replaced as nan before reformat to float
+df.sqft_basement = df.sqft_basement.map(lambda x: float(x.replace('?', 'nan')))
+df.sqft_basement.unique()
 
 ## Results
 
