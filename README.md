@@ -26,8 +26,36 @@ The description of the column names can be found in `column_names.md` in the sam
 
 
 ## Methods
+### Importing necessary libraries
 
-### 1. Loading data to check the potential features
+```python
+# import necessary libraries
+# Warning off
+import warnings
+warnings.filterwarnings('ignore')
+
+# import pandas and numpy
+import pandas as pd
+import numpy as np
+
+# import data visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style('darkgrid')
+%matplotlib inline
+
+# import linear regression related modules
+from statsmodels.formula.api import ols
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+import statsmodels.api as sm
+import scipy.stats as stats
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+```
+
+
+###  Loading data to check the potential features
+
 
 #loading kc_house_data.csv data
 
