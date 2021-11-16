@@ -9,9 +9,12 @@ This project analyzes house sales data in a northwestern county using regression
 ## Business Problem
 
 After buiding the regression model, the features that are closely related to house price will be identified. 
+
 Therefore, some suggestions could be given to both the buyers and sellers.
-For the buyer, they will know the price of the house based on the characteristics of the house, and also, what's the investment value for the house.
-For the seller, they may know whether they can do something to sell the house with a better price.
+
+* For the buyer, they will know the price of the house based on the characteristics of the house, and also, what's the investment value for the house.
+
+* For the seller, they may know whether they can do something to sell the house with a better price.
 
 
 ## Data
@@ -25,7 +28,9 @@ The description of the column names can be found in `column_names.md` in the sam
 ## Methods
 
 ### 1. Loading data to check the potential features
+
 #loading kc_house_data.csv data
+
 df = pd.read_csv('./data/kc_house_data.csv')
 df.head() # checking the head for information
 
