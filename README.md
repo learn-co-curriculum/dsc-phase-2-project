@@ -392,7 +392,7 @@ plt.show()
 mean = 446934.39 and std dev = 188664.37
 
 ![figure of target](Figs/target_log1p.png)
-![figure of target](Figs/target_log1p+prob.png)
+![figure of target](Figs/target_log1p_prob.png)
 
 ```python
 # Splitting the Data into Training and Testing
