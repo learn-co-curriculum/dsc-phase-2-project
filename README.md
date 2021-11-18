@@ -58,28 +58,109 @@ from sklearn.model_selection import train_test_split
 df = pd.read_csv('./data/kc_house_data.csv')
 df.head() # checking the head for information
 ```
-[	id	date	price	bedrooms	bathrooms	sqft_living	sqft_lot	floors	waterfront	view	...	grade	sqft_above	sqft_basement	yr_built	yr_renovated	zipcode	lat	long	sqft_living15	sqft_lot15
-0	7129300520	10/13/2014	221900.0	3	1.00	1180	5650	1.0	NaN	0.0	...	7	1180	0.0	1955	0.0	98178	47.5112	-122.257	1340	5650
-1	6414100192	12/9/2014	538000.0	3	2.25	2570	7242	2.0	0.0	0.0	...	7	2170	400.0	1951	1991.0	98125	47.7210	-122.319	1690	7639
-2	5631500400	2/25/2015	180000.0	2	1.00	770	10000	1.0	0.0	0.0	...	6	770	0.0	1933	NaN	98028	47.7379	-122.233	2720	8062
-3	2487200875	12/9/2014	604000.0	4	3.00	1960	5000	1.0	0.0	0.0	...	7	1050	910.0	1965	0.0	98136	47.5208	-122.393	1360	5000
-4	1954400510	2/18/2015	510000.0	3	2.00	1680	8080	1.0	0.0	0.0	...	8	1680	0.0	1987	0.0	98074	47.6168	-122.045	1800	7503
-5 rows × 21 columns]
+
 ```python
 # Describe the dataset using 5-point statistics
 df.describe()
 # What data is available to us?
 df.info()
 ```
+#We have potentially 19 predictors excluding the id and the target,i.e.,the price
+#We have a total of 21597 rows, while some rows have null values in some predictors
+#Several predictors' data type need to be changed
 
-### 2. Data Preparation
-#Deal with data types: sqft_basement & date
+### Data Preparation
+#### Deal with data types: sqft_basement & date
+```python
 #sqft_basement: Numerical Data Stored as Strings need to be reformat to float
 print(df.sqft_basement.unique())
 df.sqft_basement.value_counts()
 #there is '?' in the sqft_basement, need to be replaced as nan before reformat to float
 df.sqft_basement = df.sqft_basement.map(lambda x: float(x.replace('?', 'nan')))
 df.sqft_basement.unique()
+```
+
+```python
+# For the sold date, since day is not important for the regression model,
+# I only extract year and month for the sold date, and add two columns as year_sold and month_sold
+df['year_sold'] = pd.DatetimeIndex(df['date']).year
+df['month_sold'] = pd.DatetimeIndex(df['date']).month
+
+# Based on the yr_built and month_sold, I create another column as age_sold of the house
+df['age_sold'] = df['year_sold'] - df['yr_built'] + 1
+df.head()
+```
+
+#### Deal with null values
+```python
+# Get the percentage value of null data for each column
+df.isnull().sum()*100/df.shape[0]
+```
+
+```python
+# There are some null data in waterfront, view, yr_renovated, sqft_basement
+# 1) since the percentage of null data in view is low, I just drop these rows
+# 2) For waterfront and yr_renovated, the percentage of null data is high,I will assign another value there
+
+# waterfront is a categorical variable
+df.waterfront.value_counts()
+# replace nan as a value: 
+# Originally I used 2.0 as a third category, 
+# but late I found the price for this missing data is similar as for waterfront == 0
+# Therefore, I fill the null as 0
+df.waterfront = df.waterfront.fillna(0)
+df.waterfront.value_counts()
+
+# yr_renovated has 17011/17755~96% without renovation, 
+#  and only 4% with renovation based on the non-null data
+df.yr_renovated.value_counts()
+# take a look of histogram
+fig, axs = plt.subplots(2,figsize=(12,8))
+df['yr_renovated'].hist(ax = axs[0]);
+axs[0].set_title('All non-null data')
+axs[0].set_xlabel('Year')
+# with renovation
+df[df.yr_renovated > 0].yr_renovated.hist(ax = axs[1])
+# dfwrenov['yr_renovated'].hist(ax = axs[1]);
+axs[1].set_title('Renovation data')
+axs[0].set_xlabel('Year')
+# Based on renovated data, I create a caterogrial variable as is_renovated
+
+ds_renovated = df['yr_renovated']
+ds_renovated[ds_renovated >0] = 1
+# replace nan as a value: 
+# Originally I used 2.0 as a third category, 
+# but late I found the price for this missing data is similar as for is_renovated == 0
+# Therefore, I fill the null as 0
+ds_renovated = ds_renovated.fillna(0)
+ds_renovated
+df['is_renovated'] = ds_renovated
+del ds_renovated
+df.is_renovated.value_counts()
+# assign as -1 to make sure these rows are not dropped in the following operation
+df.yr_renovated = df.yr_renovated.fillna(-1)
+# for view and sqft_basement, I just drop those rows with null value, since they are only a few
+df.dropna(inplace=True)
+print(df.info())
+print(df.shape)
+df.is_renovated.value_counts()
+```
+
+#### Deal with outliers if existed in some columns
+```python
+
+# For some selected columns, have a boxplot to examine the outliers
+x_cols = ['price','bedrooms','bathrooms','sqft_living','sqft_lot',
+          'floors','sqft_above','sqft_basement','sqft_living15','sqft_lot15']
+fig, axs = plt.subplots(2,5, figsize = (15,6))
+for colii in range(len(x_cols)):
+    sns.boxplot(df[x_cols[colii]],ax = axs[colii//5, colii%5])
+plt.tight_layout()
+```
+![figure of outliers](Figs/outliers.png)
+
+
+
 
 ## Results
 
