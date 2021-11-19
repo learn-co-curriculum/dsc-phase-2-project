@@ -562,7 +562,7 @@ print(pd.Series(final_model.coef_, index=x_cols, name="Coefficients"))
 print()
 print("Intercept:", final_model.intercept_)
 ```
-![figure of target](Figs/Finalbeta.png)
+![](Figs/Finalbeta.png)
 
 
 ### From coefficients described above, I observed:
