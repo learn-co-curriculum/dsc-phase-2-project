@@ -466,7 +466,8 @@ model2 = sm.OLS(df_train[outcome],sm.add_constant(df_train[x_cols])).fit()
 model2.summary()
 ```
 ![figure of target](Figs/OLSFinalModel1.png)
-![figure of target](Figs/OLSFinalModel1.png)
+
+![figure of target](Figs/OLSFinalModel2.png)
 ```python
 # checking normality
 fig = sm.graphics.qqplot(model2.resid, dist=stats.norm, line='45', fit=True)
@@ -562,7 +563,7 @@ print(pd.Series(final_model.coef_, index=x_cols, name="Coefficients"))
 print()
 print("Intercept:", final_model.intercept_)
 ```
-![](Figs/Finalbeta.png)
+![FinalBeta](Figs/Finalbeta.png)
 
 
 ### From coefficients described above, I observed:
