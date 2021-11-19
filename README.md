@@ -371,7 +371,7 @@ sns.heatmap(corr, center=0, annot=True);
 Price seems to be correlated to sqrt_living and grade the most. 
 And some sqft-related and rooms-related variables have high correlation, e.g., sqft_living vs.bedrooms and bathrooms
 
-```
+```python
 # Fitting the actual model with all available features, zipcode with dummy values
 import statsmodels.api as sm
 
@@ -408,7 +408,7 @@ model4 = sm.OLS(df_train[outcome2],sm.add_constant(df_train[x_cols])).fit()
 print(model4.summary())
 ```
 
-
+```python
 # Based on the R-squared values from four models, 
 # I choose to use outcome = 'price_log1p' and zipcode_dummies for regression model
 # price_log1p
