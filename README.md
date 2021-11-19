@@ -466,6 +466,7 @@ model2 = sm.OLS(df_train[outcome],sm.add_constant(df_train[x_cols])).fit()
 model2.summary()
 ```
 ![figure of target](Figs/OLSFinalModel1.PNG)
+
 ![figure of target](Figs/OLSFinalModel2.PNG)
 ```python
 # checking normality
