@@ -45,7 +45,7 @@ And finally the histogram of all features are shown below
 
 For the zip code, I only keep the first four digits since if I only keep the first three digits,it will only have two zipcodes
 And the visualization of categorical variables are shown in the following figure
-[figure of categorial variables](Figs/boxplot_categorialvar.png)
+![figure of categorial variables](Figs/boxplot_categorialvar.png)
 
 
 ### Modeling
@@ -57,15 +57,13 @@ I drop id, date, yr_renovated,lat, long, zipcode from df since:
 4) the lat and long indicate similar information as zipcode
 5) zipcode has been transformed into zipcode4 and dummy variables
 
-I also scale individual features in the same scale
+I also scaled individual features in the same scale
 
 For the target, i.e., price, I performed a transformation: log10(1+price), to make it more normal distribution(see the following figures)
 
-original price
 ![figure of target](Figs/target_ori.png)
 ![figure of target](Figs/target_ori_prob.png)
 
-after transformation
 
 ![figure of target](Figs/target_log1p.png)
 ![figure of target](Figs/target_log1p_prob.png)
@@ -74,13 +72,17 @@ Now I conducted linear regression modeling. I firstly used all features and foun
 Therefore, I used it as the target for subsequent analysis.
 
 After removing the insignificant Features, and features with collinearity, I obtained the final model shown as below:
-![figure of target](Figs/OLSFinalModel1.png)
-![figure of target](Figs/OLSFinalModel2.png)
 
-The model's normality is shown as
+![figure of final model](Figs/OLSFinalModel1.PNG)
+
+![figure of final model](Figs/OLSFinalModel2.PNG)
+
+The model's normality is 
+
 ![figure of target](Figs/model_normality.png)
 
 And the homoscedasticity is
+
 ![figure of target](Figs/model_homoscedasticity.png)
 
 
@@ -99,13 +101,15 @@ RMSE:       0.28766559948562176
 MAE:        0.22861402157360175
 R-Squared:  0.5432593071160836
 
-and the comparision of predicted and real values
+And the comparison of predicted and real values
+
 ![figure of target](Figs/prediction.png)
 
 From above values and plots, the fitted regression model can predict house price very well
 
 ## Summary
 The coefficients of the selected features are:
+
 ![figure of target](Figs/Finalbeta.PNG)
 
 ### From coefficients described above, I observed:
